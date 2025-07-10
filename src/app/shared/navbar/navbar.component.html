@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">TiendaApp</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <!-- Enlaces para cliente -->
+        <ng-container *ngIf="tipoUsuario === 'cliente'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cliente/home">Artículos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cliente/historial">Mis compras</a>
+          </li>
+        </ng-container>
+
+        <!-- Enlaces para tienda -->
+        <ng-container *ngIf="tipoUsuario === 'tienda'">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/tienda/home">Mis artículos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/tienda/nuevo-articulo">Nuevo artículo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/tienda/historial-ventas">Historial de ventas</a>
+          </li>
+        </ng-container>
+      </ul>
+
+      <ul class="navbar-nav">
+        <!-- Icono del carrito para clientes -->
+        <li class="nav-item" *ngIf="tipoUsuario === 'cliente'">
+          <a class="nav-link" routerLink="/cliente/carrito">
+            <i class="bi bi-cart-fill"></i> Carrito
+          </a>
+        </li>
+
+        <!-- Logout -->
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="#" (click)="logout()">Cerrar sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+

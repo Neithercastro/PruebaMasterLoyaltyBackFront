@@ -1,0 +1,16 @@
+.card {
+  border-radius: 10px;
+}
+
+.btn:hover {
+  background-color: #0052cc !important;
+}
+
+input:focus {
+  border-color: #003399;
+  box-shadow: none;
+}
+
+a {
+  cursor: pointer;
+}

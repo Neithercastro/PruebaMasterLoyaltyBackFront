@@ -1,0 +1,58 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow p-4" style="width: 100%; max-width: 500px;">
+    <h3 class="text-center mb-4 text-primary">Registrarse</h3>
+
+    <!-- Pestañas -->
+    <ul class="nav nav-tabs mb-3" id="registroTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="cliente-tab" data-bs-toggle="tab"
+                data-bs-target="#cliente" type="button" role="tab"
+                aria-controls="cliente" aria-selected="true">
+          Cliente
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tienda-tab" data-bs-toggle="tab"
+                data-bs-target="#tienda" type="button" role="tab"
+                aria-controls="tienda" aria-selected="false">
+          Tienda
+        </button>
+      </li>
+    </ul>
+
+    <!-- Contenido de pestañas -->
+    <div class="tab-content" id="registroTabsContent">
+
+      <!-- Cliente -->
+      <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
+        <form [formGroup]="formCliente" (ngSubmit)="onRegistrarCliente()">
+          <div class="mb-3"><label class="form-label">Usuario</label><input type="text" class="form-control" formControlName="usuario"></div>
+          <div class="mb-3"><label class="form-label">Contraseña</label><input type="password" class="form-control" formControlName="password"></div>
+          <div class="mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" formControlName="nombre"></div>
+          <div class="mb-3"><label class="form-label">Apellidos</label><input type="text" class="form-control" formControlName="apellidos"></div>
+          <div class="mb-3"><label class="form-label">Dirección</label><input type="text" class="form-control" formControlName="direccion"></div>
+          <button type="submit" class="btn w-100 text-white" style="background-color: #003399;">Registrarse como cliente</button>
+        </form>
+      </div>
+
+      <!-- Tienda -->
+      <div class="tab-pane fade" id="tienda" role="tabpanel" aria-labelledby="tienda-tab">
+        <form [formGroup]="formTienda" (ngSubmit)="onRegistrarTienda()">
+          <div class="mb-3"><label class="form-label">Usuario</label><input type="text" class="form-control" formControlName="usuario"></div>
+          <div class="mb-3"><label class="form-label">Contraseña</label><input type="password" class="form-control" formControlName="password"></div>
+          <div class="mb-3"><label class="form-label">Sucursal</label><input type="text" class="form-control" formControlName="sucursal"></div>
+          <div class="mb-3"><label class="form-label">Dirección</label><input type="text" class="form-control" formControlName="direccion"></div>
+          <button type="submit" class="btn w-100 text-white" style="background-color: #003399;">Registrarse como tienda</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="mt-3 text-center">
+      <span>¿Ya tienes cuenta?</span>
+      <a routerLink="/Login" class="text-decoration-none" style="color: #003399; cursor: pointer;">
+        Inicia sesión aquí
+      </a>
+    </div>
+  </div>
+</div>
