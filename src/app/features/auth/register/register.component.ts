@@ -13,6 +13,9 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class RegisterComponent {
   formCliente: FormGroup;
   formTienda: FormGroup;
+  mensaje: string = '';
+  tipo: 'success' | 'error' = 'success';
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router : Router){
     this.formCliente = this.fb.group({
@@ -46,7 +49,8 @@ export class RegisterComponent {
       error: err => {
         
         console.error('Error al registrar cliente:\n', err);
-        alert('Error al registrar cliente');
+        this.mostrarAlerta(err.error || 'Error inesperado al registrar cliente', 'error');
+
       }
     });
 
@@ -60,7 +64,8 @@ export class RegisterComponent {
 
       this.authService.registerTienda(data).subscribe({
       next: (response) => {
-        alert("Tienda registrada correctamente");
+        this.mostrarAlerta(response.mensaje, 'success');
+
         //console.log(response);
         this.formTienda.reset();
         this.router.navigate(['/Login']);
@@ -69,7 +74,8 @@ export class RegisterComponent {
       error: err => {
         console.log(data);
         console.error('Error al registrar tienda:\n', err);
-        alert('Error al registrar tienda');
+        this.mostrarAlerta(err.error || 'Error inesperado al registrar tienda', 'error');
+
       }
     });
 
@@ -77,6 +83,18 @@ export class RegisterComponent {
       //console.log('Registrando tienda:', data);
     }
   }
+
+  mostrarAlerta(mensaje: string, tipo: 'success' | 'error') {
+  this.mensaje = mensaje;
+  this.tipo = tipo;
+
+  setTimeout(() => this.cerrarAlerta(), 3000); // cierre automático
+}
+
+cerrarAlerta() {
+  this.mensaje = '';
+}
+
 
 
 

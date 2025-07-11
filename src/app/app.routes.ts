@@ -10,7 +10,7 @@ import { AuthGuard } from './core/auth/auth.guard';
 import { HometiendaComponent } from './features/tienda/hometienda/hometienda.component';
 import { AgregarArticuloComponent } from './features/tienda/agregar-articulo/agregar-articulo.component';
 import { EditarArticuloComponent } from './features/tienda/editar-articulo/editar-articulo.component';
-import { VentasComponent } from './features/tienda/ventas/ventas.component';
+
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -21,7 +21,6 @@ export const routes: Routes = [
     {path: 'tienda/home', component: HometiendaComponent, canActivate: [AuthGuard], data: { tipo: 'Tienda' }},
     {path: 'tienda/agregar', component: AgregarArticuloComponent, canActivate: [AuthGuard], data: { tipo: 'Tienda' }},
     {path: 'tienda/editar', component: EditarArticuloComponent, canActivate: [AuthGuard], data: { tipo: 'Tienda' }},
-    {path: 'tienda/ventas', component: VentasComponent, canActivate: [AuthGuard], data: { tipo: 'Tienda' }},
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     {path: '**', redirectTo: '/login' }
 

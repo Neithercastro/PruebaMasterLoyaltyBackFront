@@ -1,0 +1,24 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  bottom: 1px;
+}
+
+main {
+  flex-grow: 1;
+   /* opcional padding: 1rem;*/
+   /* útil si el contenido es largo overflow: auto;*/
+  bottom: 0px;
+}

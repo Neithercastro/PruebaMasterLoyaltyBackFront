@@ -29,11 +29,12 @@ export class HomeComponent implements OnInit {
   next: res => {
     this.tiendas = res.datos;
     this.totalPaginas = res.totalPaginas;
+    this.cargarProductos();
     },
       error: err => console.error('Error al cargar tiendas:', err)
     });
 
-    this.cargarProductos();
+    
   }
 
   cargarProductos(pagina: number = 1) {
@@ -70,38 +71,44 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  agregarAlCarrito(event: { producto: ArticuloDTO; cantidad: number }) {
+  agregados: Set<number> = new Set();
 
+  agregarAlCarrito(event: { producto: ArticuloDTO; cantidad: number }) {
     const Usuario = this.authService.idUsuario;
     this.clienteService.obtenerClientePorUsuario(Usuario!).subscribe({
-    next: (cliente) =>{ 
-        console.log('Cliente ID:', cliente)
+      next: (cliente) => {
         const idCliente = cliente.idCliente;
-          if (!idCliente) return;
-          const dto: AgregarProductoCarritoDTO = {
-          idCliente: idCliente,
+        if (!idCliente) return;
+
+        const dto: AgregarProductoCarritoDTO = {
+          idCliente,
           idArticulo: event.producto.idArticulo,
           idTienda: event.producto.idTienda,
-          producto: event.producto.descripcion.toString(),
+          producto: event.producto.descripcion,
           precio: event.producto.precio,
           cantidad: event.cantidad
         };
-        console.log('Objeto:',dto);
+
         this.carritoService.agregarProducto(dto).subscribe({
-          next: () => console.log('Agregado al carrito correctamente'),
+          next: () => {
+            console.log('Agregado al carrito correctamente');
+            this.agregados.add(event.producto.idArticulo);
+
+            // Quitar el estado luego de un tiempo (opcional)
+            setTimeout(() => this.agregados.delete(event.producto.idArticulo), 3000);
+          },
           error: err => console.error('Error al agregar al carrito', err)
         });
-
       },
-      error: (err) => {
-        console.error('Error al agregar al carrito', err)
-      }
+      error: err => console.error('Error al agregar al carrito', err)
     });
-      
   }
+
+
+
+}
 
   
 
 
 
-}

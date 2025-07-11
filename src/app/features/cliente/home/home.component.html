@@ -13,13 +13,15 @@
 
   <!-- Lista de productos -->
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" *ngFor="let producto of productosFiltrados">
-      <app-product-card
+  <div class="col" *ngFor="let producto of productosFiltrados">
+    <app-product-card
       [producto]="producto"
+      [agregado]="agregados.has(producto.idArticulo)"
       (agregar)="agregarAlCarrito($event)">
     </app-product-card>
-    </div>
   </div>
+</div>
+
 
   <!-- Paginación -->
   <nav *ngIf="totalPaginas > 1" class="mt-4">

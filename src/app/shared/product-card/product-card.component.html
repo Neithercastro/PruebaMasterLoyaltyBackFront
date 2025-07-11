@@ -21,9 +21,10 @@
       class="btn mt-auto text-white"
       style="background-color: #003399;"
       (click)="agregarAlCarrito()"
-      [disabled]="cantidadControl.invalid"
+      [disabled]="cantidadControl.invalid || agregado"
     >
-      Agregar al carrito
+      {{ agregado ? '✅ Agregado al carrito' : 'Agregar al carrito' }}
     </button>
+
   </div>
 </div>

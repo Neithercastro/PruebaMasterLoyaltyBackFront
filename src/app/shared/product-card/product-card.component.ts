@@ -12,8 +12,10 @@ import { AgregarProductoCarritoDTO } from '../../models/carrito/agregar-producto
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-@Input() producto!: ArticuloDTO; // 👈 IMPORTANTE: habilita esta línea
+@Input() producto!: ArticuloDTO;
+@Input() agregado: boolean = false;
 @Output() agregar = new EventEmitter<{ producto: ArticuloDTO; cantidad: number }>();
+
 
 
 

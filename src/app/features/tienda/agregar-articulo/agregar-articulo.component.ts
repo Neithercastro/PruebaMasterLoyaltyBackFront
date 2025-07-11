@@ -15,6 +15,8 @@ export class AgregarArticuloComponent {
   formArticulo: FormGroup;
   imagenSeleccionada: File | null = null;
   User: number | undefined;
+  mensaje: string = '';
+  tipo: 'success' | 'error' = 'success';
 
   constructor(private fb: FormBuilder, private articuloService: ArticuloService, private authService: AuthService, private tiendaService: TiendaService) {
     this.formArticulo = this.fb.group({
@@ -56,20 +58,33 @@ export class AgregarArticuloComponent {
 
       //SE ENVIA EL FORMDATA AL BACK
       this.articuloService.agregarArticulo(formData).subscribe({
-        next: () => {
-          alert('Artículo agregado correctamente');
+        next: (response) => {
+          //alert('Artículo agregado correctamente');
+          this.mostrarAlerta(response.mensaje, 'success');
           this.formArticulo.reset();
           this.imagenSeleccionada = null;
         },
         error: err => {
           console.error('Error al agregar artículo:', err);
-          alert('Error al agregar artículo');
+          //alert('Error al agregar artículo');
+          this.mostrarAlerta(err.error || 'Error inesperado al registrar prodcuto', 'error');
         }
       });
     },
     error: err => console.error('No se encontró tienda para este usuario', err)
     });
     
+  }
+
+   mostrarAlerta(mensaje: string, tipo: 'success' | 'error') {
+  this.mensaje = mensaje;
+  this.tipo = tipo;
+
+  setTimeout(() => this.cerrarAlerta(), 3000); // cierre automático
+  }
+
+  cerrarAlerta() {
+    this.mensaje = '';
   }
 }
 
