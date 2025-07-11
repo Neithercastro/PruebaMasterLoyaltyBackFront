@@ -1,1 +1,38 @@
-<p>historial works!</p>
+<div class="container mt-4">
+  <h3>📜 Historial de Compras</h3>
+
+  <div *ngIf="historial.length === 0" class="alert alert-info">No hay compras registradas.</div>
+
+  <div *ngFor="let venta of historial" class="card mb-3">
+    <div class="card-header">
+      <strong>Compra #{{ venta.idVenta }}</strong> — {{ venta.fechaVenta | date:'mediumDate' }}
+      <span class="float-end fw-bold text-success">Total: ${{ venta.total }}</span>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let detalle of venta.detalles" class="list-group-item d-flex justify-content-between">
+        <div>
+          <strong>{{ detalle.producto }}</strong><br>
+          Cantidad: {{ detalle.cantidad }} | Precio: ${{ detalle.precio }}
+        </div>
+        <span class="text-success">Subtotal: ${{ detalle.subtotal }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Paginación -->
+  <nav *ngIf="totalPaginas > 1" class="mt-3">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="paginaActual === 1">
+        <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</button>
+      </li>
+
+      <li *ngFor="let page of [].constructor(totalPaginas); let i = index" class="page-item" [class.active]="paginaActual === i + 1">
+        <button class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</button>
+      </li>
+
+      <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+        <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
+</div>

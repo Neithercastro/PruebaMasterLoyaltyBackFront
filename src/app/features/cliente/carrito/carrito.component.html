@@ -1,1 +1,42 @@
-<p>carrito works!</p>
+<div class="container my-4">
+  <h3 class="mb-4">🛒 Tu carrito</h3>
+
+  <!-- Carrito vacío -->
+  <div *ngIf="carrito.length === 0" class="alert alert-info text-center">
+    No tienes ningún artículo en el carrito.
+  </div>
+
+  <!-- Lista de productos -->
+  <div *ngFor="let item of carrito" class="card mb-3 shadow-sm">
+    <div class="card-body d-flex flex-column flex-md-row align-items-center">
+
+      <img [src]="'https://localhost:7172' + item.imagen" alt="{{ item.producto }}"
+           class="img-fluid rounded me-3" style="width: 120px;" />
+
+      <div class="flex-grow-1">
+        <h5 class="mb-1">{{ item.producto }}</h5>
+        <p class="mb-1">Precio: ${{ item.precio }}</p>
+        <p class="mb-1">Stock: {{ item.stock }}</p>
+
+        <div class="input-group w-auto">
+          <button class="btn btn-outline-secondary" [disabled]="item.cantidad <= 1" (click)="disminuir(item)">−</button>
+          <input type="number" class="form-control text-center" [value]="item.cantidad" readonly style="max-width: 70px;" />
+          <button class="btn btn-outline-secondary" [disabled]="item.cantidad >= item.stock" (click)="aumentar(item)">+</button>
+        </div>
+
+        <!-- Subtotal individual -->
+        <p class="mt-2 fw-bold text-success">Subtotal: ${{ item.precio * item.cantidad }}</p>
+      </div>
+
+      <button class="btn btn-sm btn-outline-danger mt-3 mt-md-0 ms-md-4" (click)="eliminar(item)">
+        ❌ Quitar
+      </button>
+    </div>
+  </div>
+
+  <!-- Total y botón pagar -->
+  <div *ngIf="carrito.length > 0" class="d-flex justify-content-end align-items-center mt-4">
+    <h5 class="me-4">🧮 Total: ${{ total }}</h5>
+    <button class="btn btn-success" (click)="pagar()">💳 Pagar</button>
+  </div>
+</div>

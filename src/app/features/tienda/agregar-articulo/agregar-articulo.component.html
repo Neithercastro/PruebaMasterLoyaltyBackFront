@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <h3 class="text-primary mb-4">Agregar nuevo artículo</h3>
+
+  <form [formGroup]="formArticulo" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">Código</label>
+      <input type="text" class="form-control" formControlName="codigo">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <input type="text" class="form-control" formControlName="descripcion">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Precio</label>
+      <input type="number" class="form-control" formControlName="precio">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Stock</label>
+      <input type="number" class="form-control" formControlName="stock">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Estado</label>
+      <select class="form-select" formControlName="estado">
+        <option [value]="true">Activo</option>
+        <option [value]="false">Inactivo</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Imagen</label>
+      <input type="file" class="form-control" (change)="onImagenSeleccionada($event)">
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="formArticulo.invalid">
+      Guardar artículo
+    </button>
+  </form>
+</div>

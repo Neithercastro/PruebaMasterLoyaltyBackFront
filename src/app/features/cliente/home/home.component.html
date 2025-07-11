@@ -3,10 +3,10 @@
   <!-- Filtro de tiendas -->
   <div class="row mb-3">
     <div class="col-md-4">
-      <label for="tiendaSelect" class="form-label">Filtrar por tienda:</label>
-      <select class="form-select" id="tiendaSelect">
-        <option value="" selected>Todas las tiendas</option>
-        <option *ngFor="let tienda of tiendas" [value]="tienda.id">{{ tienda.nombre }}</option>
+      <label for="tiendaSelect" class="form-label">Filtrar por sucursal:</label>
+      <select class="form-select" id="tiendaSelect" (change)="onFiltrarPorTienda($event)">
+        <option value="">Todas las sucursales</option>
+        <option *ngFor="let tienda of tiendas" [value]="tienda.idTienda">{{ tienda.sucursal }}</option>
       </select>
     </div>
   </div>
@@ -14,8 +14,28 @@
   <!-- Lista de productos -->
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" *ngFor="let producto of productosFiltrados">
-      <app-product-card [producto]="producto" (agregar)="agregarAlCarrito(producto)"></app-product-card>
+      <app-product-card
+      [producto]="producto"
+      (agregar)="agregarAlCarrito($event)">
+    </app-product-card>
     </div>
   </div>
+
+  <!-- Paginación -->
+  <nav *ngIf="totalPaginas > 1" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="paginaActual === 1">
+        <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</button>
+      </li>
+      <li class="page-item"
+          *ngFor="let pag of [].constructor(totalPaginas); let i = index"
+          [class.active]="paginaActual === i + 1">
+        <button class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+        <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
+      </li>
+    </ul>
+  </nav>
 
 </div>

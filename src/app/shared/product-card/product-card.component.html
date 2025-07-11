@@ -1,10 +1,28 @@
 <div class="card h-100 shadow-sm">
-  <img [src]="producto.imagenUrl" class="card-img-top" alt="{{ producto.imagenUrl }}">
+  <img [src]="'https://localhost:7172' + producto.imagen" class="card-img-top" alt="{{ producto.descripcion }}">
   <div class="card-body d-flex flex-column">
-    <h5 class="card-title">{{ producto.nombre }}</h5>
+    <h5 class="card-title">{{ producto.descripcion }}</h5>
     <p class="card-text mb-1">Precio: ${{ producto.precio }}</p>
     <p class="card-text">Stock: {{ producto.stock }}</p>
-    <button class="btn mt-auto text-white" style="background-color: #003399;" (click)="agregar.emit()">
+
+    <label class="form-label mt-2">Cantidad:</label>
+    <input
+      type="number"
+      [formControl]="cantidadControl"
+      class="form-control mb-2"
+      [class.is-invalid]="cantidadControl.invalid && cantidadControl.touched"
+    />
+    <div *ngIf="cantidadControl.errors && cantidadControl.touched" class="text-danger small">
+      <div *ngIf="cantidadControl.errors['min']">Mínimo 1 unidad</div>
+      <div *ngIf="cantidadControl.errors['max']">Solo hay {{ producto.stock }} disponibles</div>
+    </div>
+
+    <button
+      class="btn mt-auto text-white"
+      style="background-color: #003399;"
+      (click)="agregarAlCarrito()"
+      [disabled]="cantidadControl.invalid"
+    >
       Agregar al carrito
     </button>
   </div>
